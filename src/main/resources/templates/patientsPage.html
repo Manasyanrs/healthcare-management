@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title>Patients</title>
+</head>
+<body>
+<h2>Patients page</h2>
+<div>
+    <form method="get" action="/patients/add">
+        <button formaction="/">Home</button>
+        <button>Add patient</button>
+    </form>
+    <br>
+</div>
+
+<span th:if="${!patientList.isEmpty()}">
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Birthday</th>
+        <th>Action</th>
+    </tr>
+        <tr th:each="patient: ${patientList}">
+            <td th:text="${patient.getName()}"></td>
+            <td th:text="${patient.getSurname()}"></td>
+            <td th:text="${patient.getDateOfBirthday()}"></td>
+            <td>
+                <form method="post" th:action="@{/patients/delete(id=${patient.getId()})}">
+                <button>Delete</button>
+            </form>
+            </td>
+        </tr>
+</table>
+</span>
+<span th:unless="${!patientList.isEmpty()}">
+    <h3>We don't have patient</h3>
+</span>
+
+</body>
+</html>

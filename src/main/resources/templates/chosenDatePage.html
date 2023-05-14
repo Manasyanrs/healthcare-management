@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chosen Date</title>
+</head>
+<body>
+<h2> Chose Registration date.</h2>
+<span th:if="${msg != null}">
+    <h3 th:text="${msg}"></h3>
+</span>
+<br>
+<form method="post" action="/appointments/chosenDate">
+    <table>
+        <tr>
+            <td>Date:</td>
+            <td>
+                <input type="date" th:min="${currentDate}" name="chosen" required>
+                <button>Done</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

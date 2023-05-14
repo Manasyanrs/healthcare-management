@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Doctors</title>
+</head>
+<body>
+<form method="post" action="/doctors/add" enctype="multipart/form-data">
+  <h3>Add doctor page</h3>
+  <table>
+    <tr>
+      <td>Name: </td>
+      <td>
+        <input type="text" name="name" required>
+      </td>
+    </tr>
+    <tr>
+      <td>Surname: </td>
+      <td>
+        <input type="text" name="surname" required>
+      </td>
+    </tr>
+    <tr>
+      <td>Email: </td>
+      <td>
+        <input type="text" name="email" required>
+      </td>
+    </tr>
+    <tr>
+      <td>Specialty: </td>
+      <td>
+        <select name="profession">
+          <option  th:each="profession: ${professions}" th:text="${profession.name()}" th:value="${profession}"></option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Phone number: </td>
+      <td>
+        <input type="text" name="phoneNumber" required>
+      </td>
+    </tr>
+    <tr>
+      <td>Avatar: </td>
+      <td>
+        <input type="file" name="profile_pic" accept="image/*">
+      </td>
+    </tr>
+  </table>
+  <button>Add doctor</button>
+</form>
+</body>
+</html>

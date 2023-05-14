@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title>Appointments</title>
+</head>
+<body>
+<h2>Appointments page</h2>
+<div>
+    <form method="get" action="/appointments/chosenDate">
+        <button formaction="/">Home</button>
+        <button>Add appointment</button>
+    </form>
+    <br>
+</div>
+
+<div>
+    <span th:if="${!appointmentList.isEmpty() && appointmentList != null}">
+    <table>
+    <tr>
+        <th>Date/Time</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Action</th>
+    </tr>
+        <tr th:each="appointment: ${appointmentList}">
+            <td th:text="${appointment.getDateTime()}"></td>
+            <td th:text="${appointment.getPatient().getName()}"></td>
+            <td th:text="${appointment.getDoctor().getName()}"></td>
+            <td>
+                <form method="post" th:action="@{/appointments/delete(id=${appointment.getId()})}">
+                <button>Delete</button>
+            </form>
+            </td>
+        </tr>
+</table>
+</span>
+    <span th:unless="${!appointmentList.isEmpty() && appointmentList != null}">
+    <h3>We don't have appointment.</h3>
+</span>
+</div>
+</body>
+</html>

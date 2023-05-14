@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Appointments</title>
+</head>
+<body>
+<h3>Add appointment page</h3>
+<div>
+    <form method="get" action="/doctors/add">
+        <button formaction="/">Home</button>
+    </form>
+</div>
+<br>
+<div>
+    <span th:if="${patientList.isEmpty()}">
+        <h2>Patient list can not be null. Please add patient.</h2>
+        <form method="get" action="/patients/add">
+            <button>Add patient</button>
+        </form>
+    </span>
+
+    <span th:if="${doctorList.isEmpty()}">
+        <h2>Doctor list can not be null. Please add doctor.</h2>
+        <form method="get" action="/doctors/add">
+            <button>Add doctor</button>
+        </form>
+    </span>
+</div>
+
+<form method="post" action="/appointments/add">
+    <span th:if="${!patientList.isEmpty()}">
+        <table>
+        <tr>
+            <td>Chosen Time:</td>
+            <td>
+                <select name="time">
+                    <option th:each="slot: ${receptionSlots}" th:text="${slot}" th:value="${slot}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Patient name:</td>
+            <td>
+                <select name="patientId">
+                    <option th:each="patient: ${patientList}"
+                            th:text="${patient.getName()}" th:value="${patient.getId()}">
+                    </option>
+                </select>
+            </td>
+
+        </tr>
+        <tr>
+            <td>Doctor name:</td>
+            <td>
+                <select name="doctorId">
+                    <option th:if="${!patientList.isEmpty()}" th:each="doctor: ${doctorList}"
+                            th:text="${doctor.getName()}" th:value="${doctor.getId()}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+        <br>
+        <button>Add appointment</button>
+    </span>
+
+</form>
+</body>
+</html>

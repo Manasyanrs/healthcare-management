@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title>Doctors</title>
+</head>
+<body>
+<h2>Doctors page</h2>
+<div>
+    <form method="get" action="/doctors/add">
+        <button formaction="/">Home</button>
+        <button>Add doctor</button>
+    </form>
+</div>
+
+<br>
+
+<span th:if="${!doctorsList.isEmpty()}">
+    <table>
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>email</th>
+        <th>Specialty</th>
+        <th>Phone Number</th>
+        <th>Action</th>
+    </tr>
+        <tr th:each="doctor: ${doctorsList}">
+            <td>
+                <img th:src="@{/getImage(avatar=${doctor.getAvatar()})}" width="100px"/>
+            </td>
+            <td th:text="${doctor.getName()}"></td>
+            <td th:text="${doctor.getSurname()}"></td>
+            <td th:text="${doctor.getEmail()}"></td>
+            <td th:text="${doctor.getProfession()}"></td>
+            <td th:text="${doctor.getPhoneNumber()}"></td>
+            <td>
+                <form method="post" th:action="@{/doctors/delete(id=${doctor.getId()})}">
+                <button>Delete</button>
+            </form>
+            </td>
+        </tr>
+</table>
+</span>
+<span th:unless="${!doctorsList.isEmpty()}">
+    <h3>We don't have doctors</h3>
+</span>
+
+
+</body>
+</html>

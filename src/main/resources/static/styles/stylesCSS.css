@@ -1,0 +1,23 @@
+
+td, th, tr {
+    border: 1px solid #000;
+}
+
+table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+.holButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.holButton>form>button{
+    width: 200px;
+    height: 35px;
+}
+.holImg{
+    background: url("../img/hol.jpg") no-repeat;
+    background-size: cover;
+}
