@@ -6,11 +6,12 @@
 </head>
 <body>
 <h2> Chose Registration date.</h2>
-<span th:if="${msg != null}">
+
+<span th:if="${msg}">
     <h3 th:text="${msg}"></h3>
 </span>
 <br>
-<form method="post" action="/appointments/chosenDate">
+<form method="get" action="/appointments/add">
     <table>
         <tr>
             <td>Date:</td>

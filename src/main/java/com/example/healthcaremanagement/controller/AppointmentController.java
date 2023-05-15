@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +23,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/appointments")
 public class AppointmentController {
-    private String chosenDate;
-    private String msg;
 
     @Autowired
     private PatientRepository patientRepository;
@@ -44,34 +42,26 @@ public class AppointmentController {
     @GetMapping("/chosenDate")
     public String chosenDatePage(ModelMap modelMap) {
         modelMap.addAttribute("currentDate", LocalDate.now().toString());
-        modelMap.addAttribute("msg", msg);
-        msg = null;
         return "chosenDatePage";
     }
 
-    @PostMapping("/chosenDate")
-    public String chosenDate(@RequestParam("chosen") String chosen, ModelMap modelMap) {
+    @GetMapping("/add")
+    public String addAppointmentPage(@RequestParam("chosen") String chosen, ModelMap modelMap,
+                                     RedirectAttributes redirectAttributes) {
         modelMap.addAttribute("chosenDate", chosen);
-        chosenDate = chosen;
-        List<String> registerDate = appointmentRepository.findAllByDateTimeLike(LocalDate.parse(chosenDate));
+
+        List<String> registerDate = appointmentRepository.findAllByDateTimeLike(LocalDate.parse(chosen));
         List<String> receptionSlots = DateUtils.getFreeTime(registerDate);
 
         if (receptionSlots.isEmpty()) {
-            msg = "Please chose another day.";
+            redirectAttributes.addFlashAttribute("msg", "Please chose another day.");
             return "redirect:/appointments/chosenDate";
         }
-        return "redirect:/appointments/add";
-    }
-
-    @GetMapping("/add")
-    public String addAppointmentPage(ModelMap modelMap) {
-        List<String> registerDate = appointmentRepository.findAllByDateTimeLike(LocalDate.parse(chosenDate));
-        List<String> receptionSlots = DateUtils.getFreeTime(registerDate);
 
         List<Patient> patientList = patientRepository.findAll();
         List<Doctor> doctorList = doctorRepository.findAll();
 
-        modelMap.addAttribute("chosenDate", chosenDate);
+        modelMap.addAttribute("chosenDate", chosen);
         modelMap.addAttribute("patientList", patientList);
         modelMap.addAttribute("doctorList", doctorList);
         modelMap.addAttribute("receptionSlots", receptionSlots);
@@ -80,15 +70,15 @@ public class AppointmentController {
     }
 
     @PostMapping("/add")
-    public String addAppointment(@RequestParam(name = "time") String time,
+    public String addAppointment(@RequestParam("dateTime") String dateTime,
                                  @RequestParam(name = "patientId") String patientId,
-                                 @RequestParam(name = "doctorId") String doctorId) throws ParseException {
+                                 @RequestParam(name = "doctorId") String doctorId) {
 
-        Date chosenDateAndTime = DateUtils.parsToFormatDate(chosenDate + " " + time);
+        Date date = DateUtils.parsToFormatDate(dateTime);
 
         appointmentRepository.save(
                 Appointment.builder()
-                        .dateTime(chosenDateAndTime)
+                        .dateTime(date)
                         .doctor(doctorRepository.findById(Integer.parseInt(doctorId)).get())
                         .patient(patientRepository.findById(Integer.parseInt(patientId)).get())
                         .build()

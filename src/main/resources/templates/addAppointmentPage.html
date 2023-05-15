@@ -34,8 +34,8 @@
         <tr>
             <td>Chosen Time:</td>
             <td>
-                <select name="time">
-                    <option th:each="slot: ${receptionSlots}" th:text="${slot}" th:value="${slot}"></option>
+                <select name="dateTime">
+                    <option th:each="slot: ${receptionSlots}" th:text="${slot}" th:value="${chosenDate} + ' ' + ${slot}"></option>
                 </select>
             </td>
         </tr>
