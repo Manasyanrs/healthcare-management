@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <title>Users</title>
+
+</head>
+<body>
+<h2>Users in DB</h2>
+<form method="get" action="/">
+    <button>Home</button>
+</form>
+<br>
+<table>
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>email</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Street</th>
+        <th>Apartment</th>
+        <th>Phone Number</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="user: ${users}">
+        <td>
+            <img th:src="@{/getImage(avatar=${user.getAvatar()})}" width="100px"/>
+        </td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getAddress().getCountry()}"></td>
+        <td th:text="${user.getAddress().getCity()}"></td>
+        <td th:text="${user.getAddress().getStreet()}"></td>
+        <td th:text="${user.getAddress().getApartment()}"></td>
+        <td th:text="${user.getPhoneNumber()}"></td>
+        <td>
+            <form method="post" th:action="@{/user/delete(id=${user.getId()})}">
+                <button>Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

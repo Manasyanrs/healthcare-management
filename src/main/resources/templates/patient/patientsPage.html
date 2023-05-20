@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
+    <link rel="stylesheet" href="../../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
     <title>Patients</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
         <tr th:each="patient: ${patientList}">
             <td th:text="${patient.getName()}"></td>
             <td th:text="${patient.getSurname()}"></td>
-            <td th:text="${patient.getDateOfBirthday()}"></td>
+            <td th:text="${patient.getDateOfBirthday().toString().substring(0, 10)}"></td>
             <td>
                 <form method="post" th:action="@{/patients/delete(id=${patient.getId()})}">
                 <button>Delete</button>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/styles/stylesCSS.css" th:href="@{/styles/stylesCSS.css}">
@@ -10,11 +10,19 @@
 <body class="holImg">
 
 <div class="holButton">
-  <form method="get">
-    <button formaction="doctors">Doctors</button>
-    <button formaction="patients">Patients</button>
-    <button formaction="appointments">Appointments</button>
-  </form>
+    <form method="get" th:if="${user != null && user.getName() == 'root'}">
+        <button formaction="doctors">Doctors</button>
+        <button formaction="patients">Patients</button>
+        <button formaction="appointments">Appointments</button>
+        <button formmethod="get" formaction="/user/register">Register</button>
+        <button formmethod="get" formaction="/user/users">Users list</button>
+    </form>
+</div>
+<div class="holButton">
+    <form>
+        <button th:if="${user != null}" formmethod="get" formaction="/logout">Logout</button>
+        <button th:if="${user == null}" formmethod="get" formaction="/login">Login</button>
+    </form>
 </div>
 </body>
 </html>

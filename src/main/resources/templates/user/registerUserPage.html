@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration page</title>
+</head>
+<body>
+<span th:if="${msg}">
+    <h3 th:text="${msg}"></h3>
+</span>
+<br>
+<form method="post" action="/user/register" enctype="multipart/form-data">
+    <h3>Add User page</h3>
+    <table>
+        <tr>
+            <td>Name: </td>
+            <td>
+                <input type="text" name="name" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Surname: </td>
+            <td>
+                <input type="text" name="surname" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>
+                <input type="text" name="email" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Password: </td>
+            <td>
+                <input type="password" name="password" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Country: </td>
+            <td>
+                <input type="text" name="country" >
+            </td>
+        </tr>
+        <tr>
+            <td>City: </td>
+            <td>
+                <input type="text" name="city" >
+            </td>
+        </tr>
+        <tr>
+            <td>Street: </td>
+            <td>
+                <input type="text" name="street">
+            </td>
+        </tr>
+        <tr>
+            <td>Apartment: </td>
+            <td>
+                <input type="text" name="apartment">
+            </td>
+        </tr>
+        <tr>
+            <td>Phone number: </td>
+            <td>
+                <input type="text" name="phoneNumber" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Avatar: </td>
+            <td>
+                <input type="file" name="profile_pic" accept="image/*">
+            </td>
+        </tr>
+    </table>
+    <button>Register</button>
+</form>
+</body>
+</html>

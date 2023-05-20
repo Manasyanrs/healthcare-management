@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Controller
 public class LoadImag {
-    @Value("${healthcare.management.doctors.avatars.path}")
+    @Value("${healthcare.management.users.avatars.path}")
     private String doctorsAvatarsPath;
 
     @Value("${healthcare.management.default.avatars.path}")

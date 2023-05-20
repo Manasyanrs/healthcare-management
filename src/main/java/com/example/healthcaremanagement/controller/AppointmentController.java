@@ -36,13 +36,13 @@ public class AppointmentController {
     public String appointmentsPage(ModelMap modelMap) {
         List<Appointment> all = appointmentRepository.findAll();
         modelMap.addAttribute("appointmentList", all);
-        return "appointmentPage";
+        return "appointment/appointmentPage";
     }
 
     @GetMapping("/chosenDate")
     public String chosenDatePage(ModelMap modelMap) {
         modelMap.addAttribute("currentDate", LocalDate.now().toString());
-        return "chosenDatePage";
+        return "appointment/chosenDatePage";
     }
 
     @GetMapping("/add")
@@ -66,7 +66,7 @@ public class AppointmentController {
         modelMap.addAttribute("doctorList", doctorList);
         modelMap.addAttribute("receptionSlots", receptionSlots);
 
-        return "addAppointmentPage";
+        return "appointment/addAppointmentPage";
     }
 
     @PostMapping("/add")

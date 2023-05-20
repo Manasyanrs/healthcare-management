@@ -26,14 +26,14 @@ public class PatientController {
     public String getPatientsPage(ModelMap modelMap) {
         List<Patient> all = patientRepository.findAll();
         modelMap.addAttribute("patientList", all);
-        return "patientsPage";
+        return "patient/patientsPage";
     }
 
     @GetMapping("/add")
     public String getAddPatientPage(ModelMap modelMap) {
         String dateNow = LocalDate.now().toString();
         modelMap.addAttribute("date", dateNow);
-        return "addPatient";
+        return "patient/addPatient";
     }
 
     @PostMapping("/add")
@@ -56,6 +56,5 @@ public class PatientController {
         patientRepository.deleteById(id);
         return "redirect:/patients";
     }
-
 
 }

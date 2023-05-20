@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/doctors")
 public class DoctorController {
 
-    @Value("${healthcare.management.doctors.avatars.path}")
+    @Value("${healthcare.management.users.avatars.path}")
     private String doctorsAvatarsPath;
 
     @Autowired
@@ -30,14 +30,14 @@ public class DoctorController {
     public String getDoctorPage(ModelMap modelMap) {
         List<Doctor> all = doctorRepository.findAll();
         modelMap.addAttribute("doctorsList", all);
-        return "doctorsPage";
+        return "doctor/doctorsPage";
     }
 
     @GetMapping("/add")
     public String getAddDoctorPage(ModelMap modelMap) {
         DoctorProfession[] values = DoctorProfession.values();
         modelMap.addAttribute("professions", values);
-        return "addDoctor";
+        return "doctor/addDoctor";
     }
 
     @PostMapping("/add")
